@@ -56,7 +56,7 @@ class HospitalAdd extends Component {
       provinceId: undefined,
       provinceSelected: undefined,
       districts: undefined,
-      districtId: undefined,
+      district: undefined,
       districtSelected: undefined,
       isLoadingDistricts: false,
     };
@@ -130,7 +130,7 @@ class HospitalAdd extends Component {
       area: this.state.area,
       latitude: this.state.latitude,
       longitude: this.state.longitude,
-      districtId: this.state.districtSelected
+      district: this.state.districtSelected
           ? parseInt(this.state.districtSelected)
           : undefined,
     };
