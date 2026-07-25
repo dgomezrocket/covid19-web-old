@@ -51,7 +51,6 @@ class HospitalAdd extends Component {
       director: "",
       loading: false,
       longitude: 0.0,
-      loading: false,
       hospital: undefined,
       provinces: undefined,
       provinceId: undefined,
@@ -131,7 +130,9 @@ class HospitalAdd extends Component {
       area: this.state.area,
       latitude: this.state.latitude,
       longitude: this.state.longitude,
-      district: this.state.districtSelected,
+      districtId: this.state.districtSelected
+          ? parseInt(this.state.districtSelected)
+          : undefined,
     };
 
     dispatch(save(data))
@@ -163,7 +164,7 @@ class HospitalAdd extends Component {
       this.setState({
         provinces: provinces,
       });
-      if (provinces != undefined) {
+      if (provinces != undefined && Array.isArray(provinces) && provinces.length > 0) {
         let idProvince = provinces[0].id;
         this.loadDistricts(idProvince);
       }
