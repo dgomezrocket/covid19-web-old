@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { getDoctor } from "../../actions/doctors";
 import { getProvinces } from "../../actions/provinces";
-import { isEmail } from "validator";
 import { create } from "../../actions/doctors";
 import { isDoctor, isAdmin, isCoordinator } from "../../actions/generalActions";
 
@@ -18,19 +17,25 @@ import "../../App.css";
 const required = (value) => {
   if (!value) {
     return (
-      <div className="alert alert-danger" role="alert">
-        Este campo es requerido!
-      </div>
+        <div className="alert alert-danger" role="alert">
+          Este campo es requerido!
+        </div>
     );
   }
 };
 
+function validateEmail(email) {
+  const sanitized = email.replace(/\s+/g, '').trim();
+  const regex = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return regex.test(sanitized);
+}
+
 const email = (value) => {
-  if (!isEmail(value)) {
+  if (!validateEmail(value)) {
     return (
-      <div className="alert alert-danger" role="alert">
-        Correo inválido.
-      </div>
+        <div className="alert alert-danger" role="alert">
+          Correo inválido.
+        </div>
     );
   }
 };
@@ -161,11 +166,13 @@ class DoctorAdd extends Component {
 
     const { dispatch } = this.props;
 
-    // Normalizar el email: eliminar caracteres no ASCII que pueden causar "Illegal address" en el backend
-    const sanitizedEmail = this.state.email
-      .normalize("NFD")
-      .replace(/[^\x00-\x7F]/g, "")
-      .trim();
+    const sanitizedEmail = this.state.email.replace(/\s+/g, '').trim();
+
+    if (!validateEmail(sanitizedEmail)) {
+      alert("El correo electrónico ingresado no es válido.");
+      this.setState({ loading: false });
+      return;
+    }
 
     let data = {
       name: this.state.name,
