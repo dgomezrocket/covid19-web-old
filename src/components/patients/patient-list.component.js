@@ -32,11 +32,11 @@ class Patients extends Component {
   }
 
   loadPatients() {
-    const { dispatch, patients } = this.props;
+    const { dispatch } = this.props;
 
     dispatch(getPatients()).then(() => {
       this.setState({
-        patients: patients,
+        patients: this.props.patients,
       });
     });
   }
