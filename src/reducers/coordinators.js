@@ -20,22 +20,3 @@ export default function (state = [], action) {
       return state;
   }
 }
-
-export default function (state = [], action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_COORDINATORS_SUCCESS:
-      return {
-        ...state,
-        coordinators: payload.coordinators,
-      };
-    case GET_COORDINATORS_FAIL:
-      return {
-        ...state,
-        coordinators: null,
-      };
-    default:
-      return state;
-  }
-}
