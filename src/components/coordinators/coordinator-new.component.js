@@ -182,8 +182,8 @@ class CoordinatorAdd extends Component {
         alert(successMessage);
         window.location.href = "/coordinators";
       })
-      .catch(() => {
-        const msg = errorMessage || "Ocurrió un error al guardar los datos.";
+      .catch((err) => {
+        const msg = err || "Ocurrió un error al guardar los datos.";
         alert(msg);
         this.setState({
           loading: false,
