@@ -161,10 +161,16 @@ class DoctorAdd extends Component {
 
     const { dispatch } = this.props;
 
+    // Normalizar el email: eliminar caracteres no ASCII que pueden causar "Illegal address" en el backend
+    const sanitizedEmail = this.state.email
+      .normalize("NFD")
+      .replace(/[^\x00-\x7F]/g, "")
+      .trim();
+
     let data = {
       name: this.state.name,
       lastname: this.state.lastname,
-      email: this.state.email,
+      email: sanitizedEmail,
       document: this.state.document,
       phone: this.state.phone,
       address: this.state.address,
