@@ -18,9 +18,13 @@ class CoordinatorService {
     });
   }
   create(data) {
-    return axios.post(API_URL + "/coordinators/new", data, {
-      headers: authHeader(),
-    });
+    return axios
+      .post(API_URL + "/coordinators/new", data, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
 }
 

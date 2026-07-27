@@ -177,12 +177,14 @@ class CoordinatorAdd extends Component {
     };
 
     dispatch(create(data))
-      .then(() => {
-        alert("Datos guardados exitosamente!");
+      .then((response) => {
+        const successMessage = response?.message || "Datos guardados exitosamente!";
+        alert(successMessage);
         window.location.href = "/coordinators";
       })
       .catch(() => {
-        alert("Ocurrio un error");
+        const msg = errorMessage || "Ocurrió un error al guardar los datos.";
+        alert(msg);
         this.setState({
           loading: false,
         });
